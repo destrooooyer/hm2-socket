@@ -19,7 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="client.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="server.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{03C043A5-D656-4703-A079-7E78AD787789}</ProjectGuid>
