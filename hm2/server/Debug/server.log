@@ -1,2 +1,3 @@
 ﻿  client.cpp
-  server.vcxproj -> C:\Users\DESTR\Documents\visual studio 2015\Projects\hm2\Debug\server.exe
+c:\users\destr\documents\github\hm2-socket\hm2\server\client.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  server.vcxproj -> C:\Users\DESTR\Documents\GitHub\hm2-socket\hm2\Debug\server.exe

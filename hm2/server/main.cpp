@@ -1,18 +1,31 @@
 #include "server.h"
 
 SOCKET serSocket;
-client clients[5];
+//client clients[5];
+std::deque <client> clients;
 
+void client_init_T(int i)
+{
+	clients[i].init();
+}
 void connect_client()
 {
+	std::vector <std::thread> T;
 	for (int i = 0; i < 5; i++)
 	{
-		client temp(serSocket);
-		temp.connect();
-		clients[i] = temp;
-		clients[i].init();
+		clients.push_back(client(serSocket));
+		clients.back().connect();
+		clients.back().init();
+		T.push_back(std::thread(&client::listen, &(clients.back())));
+		T.push_back(std::thread(&client::send_1, &(clients.back())));
+		//T.push_back(std::thread(&client::init, clients.back()));
+		//T.push_back(std::thread(client_init_T, i));
+
 	}
+	for (int i = 0; i < T.size(); i++)
+		T[i].join();
 }
+
 
 void main()
 {
@@ -20,18 +33,8 @@ void main()
 	WORD myVersionRequest;
 	WSADATA wsaData;
 	myVersionRequest = MAKEWORD(1, 1);
-	int err;
-	err = WSAStartup(myVersionRequest, &wsaData);
-	if (!err)
-	{
-		printf("已打开套接字\n");
-	}
-	else
-	{
-		//进一步绑定套接字
-		printf("嵌套字未打开!");
-		return;
-	}
+	WSAStartup(myVersionRequest, &wsaData);
+
 	serSocket = socket(AF_INET, SOCK_STREAM, 0);//创建了可识别套接字
 													   //需要绑定的参数
 	SOCKADDR_IN addr;
