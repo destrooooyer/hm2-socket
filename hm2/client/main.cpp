@@ -3,6 +3,7 @@
 #include <thread>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <regex>
 #pragma comment(lib,"ws2_32.lib")
 #pragma warning(disable:4996)
@@ -68,9 +69,9 @@ void main()
 			send(clientSocket, "send", strlen("send") + 1, 0);
 			send(clientSocket, rs.str(1).c_str(), strlen(rs.str(1).c_str()) + 1, 0);
 			send(clientSocket, rs.str(2).c_str(), strlen(rs.str(2).c_str()) + 1, 0);
-			
+
 		}
-		else if(str_in=="exit")
+		else if (str_in == "exit")
 		{
 			send(clientSocket, "exit", strlen("exit") + 1, 0);
 			run_flag = 0;
@@ -78,6 +79,18 @@ void main()
 			closesocket(clientSocket);
 			WSACleanup();
 			return;
+		}
+		else if (str_in == "show log")
+		{
+			ifstream fin("log.txt");
+			string str_in2;
+			while (getline(fin, str_in2))
+			{
+				if (str_in2.find("[" + string(client_id) + "]") != -1)
+					cout << str_in2 << endl;
+			}
+			fin.close();
+
 		}
 		else
 		{

@@ -8,6 +8,7 @@
 #include <thread>
 #include <deque>
 #include <vector>
+#include <fstream>
 #pragma comment(lib,"ws2_32.lib")
 #pragma warning(disable:4996)
 

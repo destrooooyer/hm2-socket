@@ -59,6 +59,9 @@ void client::send_1()
 			str_out += temp.second;
 			str_out += "\n";
 			cout << str_out;
+			ofstream fout("log.txt", ios::app);
+			fout << str_out;
+			fout.close();
 
 			str_out = "client[";
 			str_out += temp.first;

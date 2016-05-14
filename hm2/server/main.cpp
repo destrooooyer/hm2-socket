@@ -50,6 +50,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	std::thread T_connect(connect_client);
 	T_connect.join();
+
 // 	SOCKADDR_IN clientsocket;
 // 	int len = sizeof(SOCKADDR);
 // 	while (1)

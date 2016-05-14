@@ -1,3 +1,6 @@
-﻿  client.cpp
-c:\users\destr\documents\github\hm2-socket\hm2\server\client.cpp(91): warning C4018: '<': signed/unsigned mismatch
+﻿  main.cpp
+c:\users\destr\documents\github\hm2-socket\hm2\server\main.cpp(25): warning C4018: '<': signed/unsigned mismatch
+  client.cpp
+c:\users\destr\documents\github\hm2-socket\hm2\server\client.cpp(94): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   server.vcxproj -> C:\Users\DESTR\Documents\GitHub\hm2-socket\hm2\Debug\server.exe
