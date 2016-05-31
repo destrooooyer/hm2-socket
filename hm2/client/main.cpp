@@ -58,6 +58,7 @@ void main()
 	getchar();
 
 	regex pt_send("send\\s+\\[(.*)\\]\\s+(.*)");
+	regex pt_show_info("show\\s+info\\s+\\[(.*)\\]");
 	while (1)
 	{
 		string str_in;
@@ -92,6 +93,12 @@ void main()
 			fin.close();
 
 		}
+		else if (regex_match(str_in, rs, pt_show_info))
+		{
+			send(clientSocket, "show info", strlen("show info") + 1, 0);
+			send(clientSocket, rs.str(1).c_str(), strlen(rs.str(1).c_str()) + 1, 0);
+		}
+
 		else
 		{
 			cout << "请输入正确的指令\n";

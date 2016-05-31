@@ -29,12 +29,18 @@ public:
 	int check_id(char a[]);
 	std::string name;
 
+	//info?³¶
+	int age;
+	std::string sex;
+	int lvl;
+
 private:
 	int listen_flag;
 	SOCKADDR_IN clientsocket;
 	SOCKET serConn;
 	SOCKET serSocket;
 	std::vector <std::pair<std::string, std::string> > send_buf;
+
 
 
 };

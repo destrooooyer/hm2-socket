@@ -1,4 +1,5 @@
 #include "server.h"
+#include <sstream>
 #include <windows.h>
 using namespace std;
 
@@ -34,6 +35,22 @@ void client::init()
 	name = receiveBuf;
 	cout << "client设置其ID为：" << name << endl;
 	send(serConn, "设置ID成功\n", strlen("设置ID成功\n") + 1, 0);
+
+	lvl = rand() % 100;
+	sex = rand() % 2 == 0 ? "male" : "female";
+	age = rand() % 100;
+
+	string str_temp = "年龄： ";
+	stringstream ss;
+	ss << age;
+	str_temp += ss.str() + "\t性别：" + sex + "\t等级：";
+	ss.clear();
+	ss << lvl;
+	str_temp += ss.str();
+	cout << "该client的信息为：\n\t" << str_temp << endl;
+
+
+
 	// 	thread T_send(&client::send_1, this);
 	// 	thread T_listen(&client::listen, this);
 	// 	T_listen.join();
@@ -68,9 +85,9 @@ void client::send_1()
 			str_out += "]:\t";
 			str_out += temp.second;
 			send(serConn, str_out.c_str(), strlen(str_out.c_str()) + 1, 0);
- 
-// 			send(serConn, temp.first.c_str(), strlen(temp.first.c_str()) + 1, 0);
-// 			send(serConn, temp.second.c_str(), strlen(temp.second.c_str()) + 1, 0);
+
+			// 			send(serConn, temp.first.c_str(), strlen(temp.first.c_str()) + 1, 0);
+			// 			send(serConn, temp.second.c_str(), strlen(temp.second.c_str()) + 1, 0);
 
 		}
 		Sleep(100);
@@ -106,6 +123,34 @@ void client::listen()
 				clients[flag].add_send_buf(name, receiveBuf2);
 
 
+		}
+		else if (strcmp(receiveBuf, "show info") == 0)
+		{
+			char receiveBuf2[100] = { 0 };//接收
+			recv(serConn, receiveBuf2, 101, 0);
+			for (int i = 0; i < clients.size() - 1; i++)
+			{
+				//cout << receiveBuf2 << endl;
+				if (clients[i].check_id(receiveBuf2))
+				{
+					string str_temp = "年龄： ";
+					stringstream ss;
+					ss << clients[i].age;
+					str_temp += ss.str() + "\t性别：" + clients[i].sex + "\t等级：";
+					ss.clear();
+					ss << clients[i].lvl;
+					str_temp += ss.str();
+
+					send(serConn, str_temp.c_str(), strlen(str_temp.c_str()) + 1, 0);
+
+					cout << "client[" << name << "] checked info of client[" << receiveBuf2 << "]" << endl;
+
+					goto _break;
+				}
+			}
+
+			send(serConn, "wrong id", strlen("wrong id") + 1, 0);
+		_break:;
 		}
 		else if (strcmp(receiveBuf, "exit") == 0)
 		{
